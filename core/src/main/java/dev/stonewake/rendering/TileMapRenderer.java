@@ -30,7 +30,7 @@ public class TileMapRenderer {
 
                     int tileSize = tileMap.getTileSize();
                     Texture tileTexture = tile.tileType.getTileTexture();
-                    int tileSpriteIndex = tile.tileType.getTileSpriteIndex(tile, tileSize);
+                    int tileSpriteIndex = tile.tileType.getTileSpriteIndex(tileMap.getBitMask(), tile, tileSize);
                     int tileSpriteX = TileUtils.decodifyTileSpriteIndexX(tileSpriteIndex, tileTexture, tileSize);
                     int tileSpriteY = TileUtils.decodifyTileSpriteIndexY(tileSpriteIndex, tileTexture, tileSize);
                     spriteBatch.draw(

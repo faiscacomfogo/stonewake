@@ -3,6 +3,7 @@ package dev.stonewake.tiles;
 import com.badlogic.gdx.graphics.Texture;
 import dev.stonewake.assets.TileAssetManager;
 import dev.stonewake.tiles.tiling.AutoTiler;
+import dev.stonewake.tiles.tiling.BitMask;
 
 public abstract class TileType {
     private int tileId;
@@ -26,8 +27,8 @@ public abstract class TileType {
         return tileSprite;
     }
 
-    public int getTileSpriteIndex(Tile occupiedTile, int tileSize) {
-        return autoTiler.getTileSpriteIndex(occupiedTile, tileSize);
+    public int getTileSpriteIndex(BitMask bitMask, Tile occupiedTile, int tileSize) {
+        return autoTiler.getTileSpriteIndex(bitMask, occupiedTile, tileSize);
     }
 
     public void loadTileTexture(Texture texture) {

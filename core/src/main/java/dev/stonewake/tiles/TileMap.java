@@ -1,5 +1,7 @@
 package dev.stonewake.tiles;
 
+import dev.stonewake.tiles.tiling.BitMask;
+
 public class TileMap {
     private int tileMapLayersCount;
     private int tileMapWidth;
@@ -7,6 +9,7 @@ public class TileMap {
     private int tileSize;
     private Tile[] tiles;
     private TileRegistry tileRegistry;
+    private BitMask bitMask;
 
     public TileMap(int tileMapLayersCount, int tileMapWidth, int tileMapHeight, int tileSize, Class<TileType>[] tileTypes) {
         this.tileMapLayersCount = tileMapLayersCount;
@@ -26,6 +29,7 @@ public class TileMap {
             }
         }
         tileRegistry = new TileRegistry(tileTypes);
+        bitMask = new BitMask(this);
     }
 
     public boolean isTileOnBounds(int tileLayer, int tileX, int tileY) {
@@ -64,5 +68,9 @@ public class TileMap {
 
     public TileRegistry getTileRegistry() {
         return tileRegistry;
+    }
+
+    public BitMask getBitMask() {
+        return bitMask;
     }
 }
