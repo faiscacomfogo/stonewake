@@ -20,4 +20,8 @@ public class ThreeBitMaskComparer extends BitMaskComparer {
 
         return forbiddenFound | requiredMissing;
     }
+
+    public boolean matches(int mask, int requiredMask, int ignoreMask, int forbiddenMask) {
+        return filter(mask, requiredMask, ignoreMask, forbiddenMask) == 0;
+    }
 }
