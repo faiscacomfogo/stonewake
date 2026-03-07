@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import dev.stonewake.assets.AssetManager;
 import dev.stonewake.assets.TextureManager;
 import dev.stonewake.assets.TileAssetManager;
+import dev.stonewake.rendering.Camera;
 import dev.stonewake.rendering.TileMapRenderer;
 import dev.stonewake.tiles.TileRegistry;
 import dev.stonewake.tiles.TileMap;
@@ -21,8 +22,7 @@ public class Game {
     private float fixedDeltaTime = 0f;
     private float alpha = 0f;
 
-    private OrthographicCamera camera;
-    private Viewport viewport;
+    private Camera camera;
     private TileMapRenderer tileMapRenderer;
     private AssetManager assetManager;
     private TextureManager textureManager;
@@ -31,8 +31,6 @@ public class Game {
     private GameWorld world;
 
     public void start() {
-        camera = new OrthographicCamera();
-        viewport = new ScreenViewport(camera);
         spriteBatch = new SpriteBatch();
         tileMapRenderer = new TileMapRenderer();
         assetManager = new AssetManager();
@@ -40,11 +38,13 @@ public class Game {
         TileMap tileMap = new TileMap(WorldConfig.NUM_LAYERS, WorldConfig.WORLD_WIDTH, WorldConfig.WORLD_HEIGHT, WorldConfig.TILE_SIZE, WorldConfig.TILE_TYPES);
         world = new GameWorld(tileMap);
         tileAssetManager = new TileAssetManager(tileMap, textureManager);
+        camera = new Camera(tileMap, 0.1f, 0.5f);
 
         assetManager.loadAllAssets(this);
 
-        tileMap.fillTiles(0, 0, 15, 0, 15, 0);
+        tileMap.fillTiles(0, 0, WorldConfig.WORLD_WIDTH - 1, 0, 15, 0);
         tileMap.clearTile(0, 5, 5);
+        tileMap.clearTile(0, 255, 5);
 
         camera.update();
     }
@@ -54,34 +54,34 @@ public class Game {
         float cameraSpeed = 3f;
 
         if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
-            camera.zoom -= 0.1f;
+            camera.changeZoom(-0.1f);
         }
         else if (Gdx.input.isKeyPressed(Input.Keys.E)) {
-            camera.zoom += 0.1f;
+            camera.changeZoom(0.1f);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            camera.position.x -= cameraSpeed;
+            camera.changePosition(-cameraSpeed, 0f);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            camera.position.x += cameraSpeed;
+            camera.changePosition(cameraSpeed, 0f);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            camera.position.y += cameraSpeed;
+            camera.changePosition(0f, cameraSpeed);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            camera.position.y -= cameraSpeed;
+            camera.changePosition(0f, -cameraSpeed);
         }
 
         camera.update();
     }
 
     public void update() {
-
+        camera.update();
     }
 
     public void render() {
-        spriteBatch.begin();
-        tileMapRenderer.renderOnce(this, world.getTileMap(), 0, 100, 0, 100);
+        camera.renderCamera(spriteBatch);
+        tileMapRenderer.renderOnce(this, world.getTileMap(), camera.getViewPortMinXTiles(), camera.getViewPortMaxXTiles(), camera.getViewPortMinYTiles(), camera.getViewPortMaxYTiles());
     }
 
     public void dispose() {
@@ -89,7 +89,7 @@ public class Game {
     }
 
     public void resize(int width, int height) {
-        viewport.update(width, height);
+        camera.resizeCamera(width, height);
     }
 
     public void updateDeltaTime(float deltaTime) {
@@ -118,10 +118,6 @@ public class Game {
 
     public SpriteBatch getSpriteBatch() {
         return spriteBatch;
-    }
-
-    public OrthographicCamera getCamera() {
-        return camera;
     }
 
     public Game(float fixedDeltaTime) {
