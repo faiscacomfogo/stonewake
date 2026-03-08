@@ -1,5 +1,6 @@
 package dev.stonewake.rendering;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
@@ -33,6 +34,8 @@ public class Camera {
         this.maxZoom = maxZoom;
 
         camera.update();
+        viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
+        viewport.apply();
     }
 
     public void update() {
@@ -95,7 +98,7 @@ public class Camera {
     }
 
     public void resizeCamera(int width, int height) {
-        viewport.update(width, height, false);
+        viewport.update(width, height, true);
     }
 
     public void changeZoom(float delta) {
@@ -126,6 +129,14 @@ public class Camera {
 
     public float getCameraY() {
         return camera.position.y;
+    }
+
+    public int getCameraXTiles(TileMap tileMap) {
+        return Math.floorDiv((int)camera.position.x, tileMap.getTileSize());
+    }
+
+    public int getCameraYTiles(TileMap tileMap) {
+        return Math.floorDiv((int)camera.position.y, tileMap.getTileSize());
     }
 
     public OrthographicCamera getLibGdxCamera() {

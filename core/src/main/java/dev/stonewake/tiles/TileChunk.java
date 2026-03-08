@@ -1,5 +1,8 @@
 package dev.stonewake.tiles;
 
+import dev.stonewake.tiles.events.TileChangeEvent;
+import dev.stonewake.tiles.events.TileChangeEventType;
+import dev.stonewake.tiles.listeners.TileChangeListener;
 import dev.stonewake.utils.TileUtils;
 
 public class TileChunk {
@@ -39,21 +42,39 @@ public class TileChunk {
                 (tileChunkY >= 0 && tileChunkY < tileMap.getTileMapChunkHeight());
     }
 
-    public Tile getTile(TileMap tileMap, int layer, int tileX, int tileY) {
-        if (!isTileOnChunkBounds(tileMap, layer, tileX, tileY))
-            throw new RuntimeException(String.format("Tile(%d, %d, %d) is not on chunk (%d, %d) boundaries!", layer, tileX, tileY, chunkX, chunkY));
+    public Tile getTile(TileMap tileMap, int tileLayer, int tileChunkX, int tileChunkY) {
+        if (!isTileOnChunkBounds(tileMap, tileLayer, tileChunkX, tileChunkY))
+            throw new RuntimeException(String.format("Tile(%d, %d, %d) is not on chunk (%d, %d) boundaries!", tileLayer, tileChunkX, tileChunkY, chunkX, chunkY));
 
-        return tiles[TileUtils.codifyTilePosition(tileMap, layer, tileX, tileY)];
+        return tiles[TileUtils.codifyTilePosition(tileMap, tileLayer, tileChunkX, tileChunkY)];
     }
 
     public void setTile(TileMap tileMap, int tileLayer, int tileChunkX, int tileChunkY, int tileId) {
         Tile tile = tiles[TileUtils.codifyTilePosition(tileMap, tileLayer, tileChunkX, tileChunkY)];
+        TileType lastTileType = tile.tileType;
+
         tile.tileType = tileMap.getTileRegistry().getTileType(tileId);
 
-        updateTile(tileMap, tile);
+        TileChangeEventType tileChangeEventType;
+
+        if (lastTileType == null) tileChangeEventType = TileChangeEventType.ADD_TILE;
+        else tileChangeEventType = TileChangeEventType.CHANGE_TILE;
+
+        for (TileChangeListener tileChangeListener : tile.tileType.getTileChangeListeners()) {
+            tileChangeListener.tileChange(new TileChangeEvent(tile, tileChangeEventType, lastTileType, tile.tileType));
+        }
     }
 
-    //public void clearTile(TileMap tileMap, int tileLayer, int tileCHu)
+    public void clearTile(TileMap tileMap, int tileLayer, int tileChunkX, int tileChunkY) {
+        Tile tile = tiles[TileUtils.codifyTilePosition(tileMap, tileLayer, tileChunkX, tileChunkY)];
+        TileType lastTileType = tile.tileType;
+
+        tile.tileType = null;
+
+        for (TileChangeListener tileChangeListener : tile.tileType.getTileChangeListeners()) {
+            tileChangeListener.tileChange(new TileChangeEvent(tile, TileChangeEventType.CLEAR_TILE, lastTileType, null));
+        }
+    }
 
     public Tile getTileFromWorld(TileMap tileMap, int tileLayer, int tileX, int tileY) {
         int chunkWidth = tileMap.getTileMapChunkWidth();
@@ -73,7 +94,7 @@ public class TileChunk {
         tiles[TileUtils.codifyTilePosition(tileMap, tileLayer, tileX, tileY)].tileType = tileMap.getTileRegistry().getTileType(tileId);
     }
 
-    private void updateTile(TileMap tileMap, Tile tile) {
+    public void updateTile(TileMap tileMap, Tile tile) {
         tile.markTileDirty();
 
         for (int layer = 0; layer < tileMap.getTileMapLayersCount(); layer++) {

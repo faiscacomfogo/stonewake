@@ -2,14 +2,19 @@ package dev.stonewake.tiles;
 
 import com.badlogic.gdx.graphics.Texture;
 import dev.stonewake.assets.TileAssetManager;
+import dev.stonewake.tiles.listeners.TileChangeListener;
 import dev.stonewake.tiles.tiling.AutoTiler;
 import dev.stonewake.tiles.tiling.BitMask;
+
+import java.util.List;
 
 public abstract class TileType {
     private int tileId;
     private Texture tileTexture;
     protected AutoTiler autoTiler;
     protected String tileSprite;
+
+    private List<TileChangeListener> tileChangeListeners;
 
     public TileType(int tileId) {
         this.tileId = tileId;
@@ -44,5 +49,13 @@ public abstract class TileType {
 
     public Texture getTileTexture() {
         return tileTexture;
+    }
+
+    protected void addTileChangeListener(TileChangeListener tileChangeListener) {
+        tileChangeListeners.add(tileChangeListener);
+    }
+
+    public List<TileChangeListener> getTileChangeListeners() {
+        return tileChangeListeners;
     }
 }

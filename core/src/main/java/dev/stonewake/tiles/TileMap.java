@@ -21,7 +21,7 @@ public class TileMap {
         this.tileMapChunkHeight = tileMapChunkHeight;
         this.tileSize = tileSize;
 
-        tileRegistry = new TileRegistry(tileTypes);
+        tileRegistry = new TileRegistry(tileTypes, this);
         bitMask = new BitMask(this);
         chunks = new TileChunk[tileMapWidthInChunks][tileMapHeightInChunks];
 
@@ -69,6 +69,14 @@ public class TileMap {
         int chunkY = Math.floorDiv(tileY, tileMapChunkHeight);
 
         return chunks[chunkX][chunkY].getTileFromWorld(this, tileLayer, tileX, tileY);
+    }
+
+    public void setTile(int chunkX, int chunkY, int tileLayer, int tileChunkX, int tileChunkY, int tileId) {
+        getTile(chunkX, chunkY, tileLayer, tileChunkX, tileChunkY).tileType = tileRegistry.getTileType(tileId);
+    }
+
+    public void setTile(int tileLayer, int tileX, int tileY, int tileId) {
+        getTile(tileLayer, tileX, tileY).tileType = tileRegistry.getTileType(tileId);
     }
 
     public int getTileMapLayersCount() {

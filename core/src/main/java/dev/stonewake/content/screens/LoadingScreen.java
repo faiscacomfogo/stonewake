@@ -17,7 +17,6 @@ public class LoadingScreen extends GameScreen {
     public void input() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             game.getScreenManager().set(game, new WorldScreen(game));
-            System.out.println(game.getScreenManager().getScreens().size());
         }
     }
 

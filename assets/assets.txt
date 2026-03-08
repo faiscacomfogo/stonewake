@@ -1,3 +1,4 @@
 ball.png
 libgdx.png
+tiles/cobblestone.png
 tiles/grass.png

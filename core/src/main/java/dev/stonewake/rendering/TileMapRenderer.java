@@ -37,10 +37,10 @@ public class TileMapRenderer {
 
                             spriteBatch.draw(
                                     tileTexture,
-                                    x * tileSize + (chunkX * tileMap.getTileMapChunkWidth() * tileSize),
-                                    y * tileSize + (chunkY * tileMap.getTileMapChunkHeight() * tileSize),
-                                    (float) tileSize,
-                                    (float) tileSize,
+                                    tileToBeRendered.getTileX() * tileSize,
+                                    tileToBeRendered.getTileY() * tileSize,
+                                    tileSize,
+                                    tileSize,
                                     tileSpriteX,
                                     tileSpriteY,
                                     tileSize,

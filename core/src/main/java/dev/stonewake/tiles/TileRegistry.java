@@ -1,5 +1,7 @@
 package dev.stonewake.tiles;
 
+import dev.stonewake.tiles.events.TileChangeEvent;
+import dev.stonewake.tiles.listeners.TileChangeListener;
 import jdk.vm.ci.meta.Constant;
 
 import java.io.Console;
@@ -7,7 +9,7 @@ import java.io.Console;
 public class TileRegistry {
     private TileType[] tileTypes;
 
-    public TileRegistry(Class<? extends TileType>[] tileTypeClasses) {
+    public TileRegistry(Class<? extends TileType>[] tileTypeClasses, TileMap tileMap) {
         this.tileTypes = new TileType[tileTypeClasses.length];
 
         for (int i = 0; i < tileTypeClasses.length; i++) {
@@ -17,6 +19,14 @@ public class TileRegistry {
                     .newInstance(i);
 
                 this.tileTypes[i] = instantiatedTileType;
+
+                instantiatedTileType.addTileChangeListener(new TileChangeListener() {
+                    @Override
+                    public void tileChange(TileChangeEvent tileChangeEvent) {
+                        Tile tile = tileChangeEvent.changedTile;
+                        tileMap.getChunk(tile.getParentChunkX(), tile.getParentChunkY()).updateTile(tileMap, tile);
+                    }
+                });
             } catch (Exception e) {
                 throw new RuntimeException("Erro ao instanciar Tile ID " + i, e);
             }

@@ -13,7 +13,7 @@ public class CobblestoneTile extends TileType {
 
     @Override
     public void setDefaults() {
-        this.tileSprite = "tiles/grass.png";
+        this.tileSprite = "tiles/cobblestone.png";
         this.autoTiler = new SimpleAutoTiler(new HashSet<>(), 2);
     }
 }
