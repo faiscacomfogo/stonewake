@@ -1,7 +1,7 @@
 package dev.stonewake.world;
 
 import dev.stonewake.tiles.TileType;
-import dev.stonewake.tiletypes.GrassTile;
+import dev.stonewake.content.tiles.GrassTile;
 
 public class WorldConfig {
     public static final int NUM_LAYERS = 3;

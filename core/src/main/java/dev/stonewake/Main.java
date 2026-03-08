@@ -2,9 +2,12 @@ package dev.stonewake;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import dev.stonewake.content.screens.LoadingScreen;
+import dev.stonewake.content.screens.WorldScreen;
 
 public class Main extends ApplicationAdapter {
     private SpriteBatch batch;
@@ -16,6 +19,8 @@ public class Main extends ApplicationAdapter {
     public void create() {
         batch = new SpriteBatch();
         game = new Game(FIXED_DELTA_TIME);
+
+        game.setInitialGameScreen(new LoadingScreen(game));
 
         game.start();
     }
@@ -33,7 +38,9 @@ public class Main extends ApplicationAdapter {
         }
         game.updateAlpha(accumulator / FIXED_DELTA_TIME);
 
-        ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         game.getSpriteBatch().begin();
         game.render();
         game.getSpriteBatch().end();

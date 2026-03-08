@@ -1,4 +1,4 @@
-package dev.stonewake.game.tiles;
+package dev.stonewake.content.tiles;
 
 import dev.stonewake.tiles.TileType;
 import dev.stonewake.tiles.tiling.autotilers.SimpleAutoTiler;

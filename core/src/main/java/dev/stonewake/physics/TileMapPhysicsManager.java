@@ -42,7 +42,7 @@ public class TileMapPhysicsManager {
                 long key = (((long) x) << 32) | (y & 0xFFFFFFFFL);
                 if (tileBodies.containsKey(key)) continue;
 
-                Tile tile = tileMap.getTileAt(layer, x, y);
+                Tile tile = tileMap.getTile(layer, x, y);
                 if (tile.isTileAir()) continue;
 
                 int mask = bm.calculateBitMask(tile);

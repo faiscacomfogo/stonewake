@@ -1,6 +1,7 @@
 package dev.stonewake.tiles.tiling;
 
 import dev.stonewake.tiles.Tile;
+import dev.stonewake.tiles.TileChunk;
 import dev.stonewake.tiles.TileMap;
 
 import java.util.function.Predicate;
@@ -24,27 +25,28 @@ public class BitMask {
     public int calculateBitMask(Tile tile, int layer, boolean considerWorldBorders, Predicate<Tile> condition) {
         int mask = 0;
 
-        for (int y = -1; y <= 1; y++) {
-            for (int x = -1; x <= 1; x++) {
+        int tileX = tile.getTileX();
+        int tileY = tile.getTileY();
 
-                if (x == 0 && y == 0) continue;
+        for (int dy = -1; dy <= 1; dy++) {
+            for (int dx = -1; dx <= 1; dx++) {
 
-                int dx = tile.getTileX() + x;
-                int dy = tile.getTileY() - y;
+                if (dx == 0 && dy == 0) continue;
 
-                int bit = getBit(x, y);
+                int worldX = tileX + dx;
+                int worldY = tileY + dy;
 
-                if (!tileMap.isTileOnBounds(layer, dx, dy)) {
+                if (!tileMap.isTileOnBounds(layer, worldX, worldY)) {
                     if (considerWorldBorders) {
-                        mask |= bit;
+                        mask |= getBit(dx, dy);
                     }
                     continue;
                 }
 
-                Tile neighbor = tileMap.getTileAt(layer, dx, dy);
+                Tile neighbor = tileMap.getTile(layer, worldX, worldY);
 
                 if (condition.test(neighbor)) {
-                    mask |= bit;
+                    mask |= getBit(dx, dy);
                 }
             }
         }
@@ -94,16 +96,16 @@ public class BitMask {
 
     public int getBit(int dx, int dy) {
 
-        if (dx == -1 && dy == -1) return NW;
-        if (dx ==  0 && dy == -1) return N;
-        if (dx ==  1 && dy == -1) return NE;
+        if (dx == -1 && dy == 1) return NW;
+        if (dx ==  0 && dy == 1) return N;
+        if (dx ==  1 && dy == 1) return NE;
 
         if (dx == -1 && dy ==  0) return W;
         if (dx ==  1 && dy ==  0) return E;
 
-        if (dx == -1 && dy ==  1) return SW;
-        if (dx ==  0 && dy ==  1) return S;
-        if (dx ==  1 && dy ==  1) return SE;
+        if (dx == -1 && dy == -1) return SW;
+        if (dx ==  0 && dy == -1) return S;
+        if (dx ==  1 && dy == -1) return SE;
 
         return 0;
     }
