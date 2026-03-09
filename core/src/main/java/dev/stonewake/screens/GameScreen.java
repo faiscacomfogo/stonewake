@@ -2,12 +2,13 @@ package dev.stonewake.screens;
 
 import com.badlogic.gdx.Screen;
 import dev.stonewake.Game;
+import dev.stonewake.GameController;
 
 public abstract class GameScreen implements Screen {
-    protected Game game;
+    protected GameController game;
     protected boolean active;
 
-    public GameScreen(Game game) {
+    public GameScreen(GameController game) {
         this.game = game;
     }
 

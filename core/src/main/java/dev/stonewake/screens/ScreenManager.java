@@ -1,7 +1,7 @@
 package dev.stonewake.screens;
 
 import com.badlogic.gdx.Gdx;
-import dev.stonewake.Game;
+import dev.stonewake.GameController;
 
 import java.util.Stack;
 
@@ -12,7 +12,7 @@ public class ScreenManager {
         screens = new Stack<>();
     }
 
-    public void push(Game game, GameScreen screen) {
+    public void push(GameController game, GameScreen screen) {
         if (!screens.empty()) {
             screens.peek().pause();
         }
@@ -26,7 +26,7 @@ public class ScreenManager {
         screen.resume();
     }
 
-    public void set(Game game, GameScreen screen) {
+    public void set(GameController game, GameScreen screen) {
         screens.clear();
 
         push(game, screen);

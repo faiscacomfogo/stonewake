@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import dev.stonewake.Game;
+import dev.stonewake.GameController;
 import dev.stonewake.assets.TileAssetManager;
 import dev.stonewake.assets.WorldAssetManager;
 import dev.stonewake.content.tiles.CobblestoneTile;
@@ -27,7 +28,7 @@ public class WorldScreen extends GameScreen {
     private static final float CAMERA_SPEED = 3f;
     private Camera camera;
 
-    public WorldScreen(Game game) {
+    public WorldScreen(GameController game) {
         super(game);
     }
 
@@ -118,23 +119,6 @@ public class WorldScreen extends GameScreen {
     public void update() {
         camera.update();
         tileMapPhysicsSolver.updatePhysics(camera, tileMap, tileMap.getBitMask(), physicsWorld, 0);
-
-        /*
-        for (int chunkX = 0; chunkX < 5; chunkX++) {
-            for (int chunkY = 0; chunkY < 5; chunkY++) {
-                TileChunk chunk = tileMap.getChunk(chunkX, chunkY);
-                for (int x = 0; x < tileMap.getTileMapChunkWidth(); x++) {
-                    if (x == 0 || x >= 15) continue;
-
-                    for (int y = 0; y < tileMap.getTileMapChunkHeight(); y++) {
-                        if (y == 0 || y >= 15) continue;
-
-                        int id = (x % 2 == 0 && y % 2 == 0) ? 0 : 1;
-                        chunk.setTile(tileMap, 0, x, y, id);
-                    }
-                }
-            }
-        }*/
     }
 
     @Override

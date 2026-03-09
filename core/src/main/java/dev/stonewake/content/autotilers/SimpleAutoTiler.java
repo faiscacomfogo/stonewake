@@ -1,9 +1,9 @@
-package dev.stonewake.tiles.tiling.autotilers;
+package dev.stonewake.content.autotilers;
 
 import dev.stonewake.tiles.Tile;
 import dev.stonewake.tiles.tiling.AutoTiler;
 import dev.stonewake.tiles.tiling.BitMask;
-import dev.stonewake.tiles.tiling.comparers.ThreeBitMaskComparer;
+import dev.stonewake.content.comparers.ThreeBitMaskComparer;
 import dev.stonewake.utils.TileUtils;
 
 import java.util.Set;

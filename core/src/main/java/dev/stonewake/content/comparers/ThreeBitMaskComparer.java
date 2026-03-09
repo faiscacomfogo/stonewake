@@ -1,4 +1,4 @@
-package dev.stonewake.tiles.tiling.comparers;
+package dev.stonewake.content.comparers;
 
 import dev.stonewake.tiles.tiling.BitMaskComparer;
 

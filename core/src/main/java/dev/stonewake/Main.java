@@ -11,7 +11,7 @@ import dev.stonewake.content.screens.WorldScreen;
 
 public class Main extends ApplicationAdapter {
     private SpriteBatch batch;
-    private Game game;
+    private GameController game;
     private float accumulator = 0f;
     private final float FIXED_DELTA_TIME = 1f/60f;
 

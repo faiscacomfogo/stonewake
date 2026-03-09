@@ -93,7 +93,7 @@ public class TileChunk {
         tileX = Math.floorMod(tileX, chunkWidth);
         tileY = Math.floorMod(tileY, chunkHeight);
 
-        tiles[TileUtils.codifyTilePosition(tileMap, tileLayer, tileX, tileY)].tileType = tileMap.getTileRegistry().getTileType(tileId);
+        tiles[TileUtils.codifyWorldTilePosition(tileMap, tileLayer, tileX, tileY)].tileType = tileMap.getTileRegistry().getTileType(tileId);
     }
 
     public void updateTile(TileMap tileMap, Tile tile) {
@@ -130,6 +130,7 @@ public class TileChunk {
                         if (!tileMap.isChunkOnBounds(chunkX + chunkdX, chunkY + chunkdY)) continue;
 
                         tileMap.getChunk(chunkX + chunkdX, chunkY + chunkdY).getTile(tileMap, layer, x, y).markTileSpriteIndexDirty();
+                        tileMap.getChunk(chunkX + chunkdX, chunkY + chunkdY).getTile(tileMap, layer, x, y).markTilePhysicsDirty();
 
                         continue;
                     }

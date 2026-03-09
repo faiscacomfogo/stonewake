@@ -4,13 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import dev.stonewake.Game;
+import dev.stonewake.GameController;
 import dev.stonewake.physics.TileMapPhysicsSolver;
 import dev.stonewake.screens.GameScreen;
 
 public class LoadingScreen extends GameScreen {
     Texture splashLogo;
 
-    public LoadingScreen(Game game) {
+    public LoadingScreen(GameController game) {
         super(game);
     }
 

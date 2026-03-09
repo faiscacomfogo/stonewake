@@ -1,7 +1,7 @@
 package dev.stonewake.content.tiles;
 
 import dev.stonewake.tiles.TileType;
-import dev.stonewake.tiles.tiling.autotilers.SimpleAutoTiler;
+import dev.stonewake.content.autotilers.SimpleAutoTiler;
 
 import java.util.HashSet;
 
