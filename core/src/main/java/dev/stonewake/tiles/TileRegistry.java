@@ -21,7 +21,7 @@ public class TileRegistry {
                 this.tileTypes[i] = instantiatedTileType;
 
             } catch (Exception e) {
-                throw new RuntimeException("Erro ao instanciar Tile ID " + i, e);
+                throw new RuntimeException("Error instancing Tile Type with id: " + i, e);
             }
         }
     }

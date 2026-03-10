@@ -52,10 +52,6 @@ public abstract class TileType {
         return tileTexture;
     }
 
-    protected void addTileChangeListener(TileChangeListener tileChangeListener) {
-        tileChangeListeners.add(tileChangeListener);
-    }
-
     public List<TileChangeListener> getTileChangeListeners() {
         return tileChangeListeners;
     }
