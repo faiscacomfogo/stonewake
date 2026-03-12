@@ -7,10 +7,6 @@ import dev.stonewake.utils.TileUtils;
 
 public class TileChunk {
     private final Tile[] tiles;
-    private final int chunkStartX;
-    private final int chunkStartY;
-    private final int chunkEndX;
-    private final int chunkEndY;
     private final short chunkX;
     private final short chunkY;
 
@@ -18,10 +14,6 @@ public class TileChunk {
         int chunkWidth = tileMap.getTileMapChunkWidth();
         int chunkHeight = tileMap.getTileMapChunkHeight();
 
-        chunkStartX = chunkX * chunkWidth;
-        chunkStartY = chunkY * chunkHeight;
-        chunkEndX = chunkStartX + chunkWidth - 1;
-        chunkEndY = chunkStartY + chunkHeight - 1;
         this.chunkX = chunkX;
         this.chunkY = chunkY;
 
@@ -149,21 +141,5 @@ public class TileChunk {
 
     public short getChunkY() {
         return chunkY;
-    }
-
-    public int getChunkStartX() {
-        return chunkStartX;
-    }
-
-    public int getChunkStartY() {
-        return chunkStartY;
-    }
-
-    public int getChunkEndX() {
-        return chunkEndX;
-    }
-
-    public int getChunkEndY() {
-        return chunkEndY;
     }
 }
