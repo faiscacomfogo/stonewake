@@ -5,6 +5,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import dev.stonewake.assets.TextureManager;
 import dev.stonewake.assets.TileAssetManager;
 import dev.stonewake.tiles.*;
+import dev.stonewake.tiles.pieces.Tile;
+import dev.stonewake.tiles.pieces.TileChunk;
+import dev.stonewake.tiles.types.TileType;
 import dev.stonewake.utils.TileUtils;
 
 public class TileMapRenderer {

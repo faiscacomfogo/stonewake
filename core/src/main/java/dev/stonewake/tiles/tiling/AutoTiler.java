@@ -1,8 +1,7 @@
 package dev.stonewake.tiles.tiling;
 
-import dev.stonewake.tiles.Tile;
+import dev.stonewake.tiles.pieces.Tile;
 import dev.stonewake.tiles.TileMap;
-import dev.stonewake.tiles.TileType;
 
 import java.util.Set;
 

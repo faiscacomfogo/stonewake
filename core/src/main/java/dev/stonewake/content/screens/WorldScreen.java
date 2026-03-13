@@ -12,10 +12,9 @@ import dev.stonewake.physics.TileMapPhysicsSolver;
 import dev.stonewake.rendering.Camera;
 import dev.stonewake.rendering.TileMapRenderer;
 import dev.stonewake.screens.GameScreen;
-import dev.stonewake.tiles.TileChunk;
+import dev.stonewake.tiles.pieces.TileChunk;
 import dev.stonewake.tiles.TileMap;
-import dev.stonewake.tiles.TileRegistry;
-import dev.stonewake.tiles.TileType;
+import dev.stonewake.tiles.types.TileRegistry;
 
 public class WorldScreen extends GameScreen {
     private World physicsWorld;

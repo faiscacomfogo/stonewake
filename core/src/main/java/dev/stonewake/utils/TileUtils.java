@@ -1,9 +1,8 @@
 package dev.stonewake.utils;
 
 import com.badlogic.gdx.graphics.Texture;
-import dev.stonewake.tiles.Tile;
 import dev.stonewake.tiles.TileMap;
-import dev.stonewake.tiles.TileType;
+import dev.stonewake.tiles.types.TileType;
 
 public class TileUtils {
     public static int decodifyTileSpriteIndexX(int index, Texture tileTexture, int tileSize) {

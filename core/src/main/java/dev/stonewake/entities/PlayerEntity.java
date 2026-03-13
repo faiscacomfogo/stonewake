@@ -1,4 +1,4 @@
-package dev.stonewake.content.entities;
+package dev.stonewake.entities;
 
-public class PlayerEntity {
+public class PlayerEntity extends LivingEntity {
 }

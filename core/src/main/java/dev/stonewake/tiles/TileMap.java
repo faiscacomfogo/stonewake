@@ -1,6 +1,10 @@
 package dev.stonewake.tiles;
 
+import dev.stonewake.tiles.pieces.Tile;
+import dev.stonewake.tiles.pieces.TileChunk;
 import dev.stonewake.tiles.tiling.BitMask;
+import dev.stonewake.tiles.types.TileRegistry;
+import dev.stonewake.world.GameWorld;
 
 public class TileMap {
     private final int tileMapLayersCount;
@@ -12,8 +16,9 @@ public class TileMap {
     private final BitMask bitMask;
     private final TileChunk[][] chunks;
     private TileRegistry tileRegistry;
+    private GameWorld world;
 
-    public TileMap(TileRegistry tileRegistry, int tileMapLayersCount, short tileMapWidthInChunks, short tileMapHeightInChunks, int tileMapChunkWidth, int tileMapChunkHeight, int tileSize) {
+    public TileMap(TileRegistry tileRegistry, GameWorld world, int tileMapLayersCount, short tileMapWidthInChunks, short tileMapHeightInChunks, int tileMapChunkWidth, int tileMapChunkHeight, int tileSize) {
         this.tileRegistry = tileRegistry;
         this.tileMapLayersCount = tileMapLayersCount;
         this.tileMapWidthInChunks = tileMapWidthInChunks;
@@ -21,6 +26,7 @@ public class TileMap {
         this.tileMapChunkWidth = tileMapChunkWidth;
         this.tileMapChunkHeight = tileMapChunkHeight;
         this.tileSize = tileSize;
+        this.world = world;
 
         bitMask = new BitMask(this);
         chunks = new TileChunk[tileMapWidthInChunks][tileMapHeightInChunks];
@@ -117,5 +123,9 @@ public class TileMap {
 
     public BitMask getBitMask() {
         return bitMask;
+    }
+
+    public GameWorld getWorld() {
+        return world;
     }
 }

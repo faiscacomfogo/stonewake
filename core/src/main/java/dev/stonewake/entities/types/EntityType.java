@@ -1,38 +1,54 @@
-package dev.stonewake.entities;
+package dev.stonewake.entities.types;
 
 import com.badlogic.gdx.graphics.Texture;
-import dev.stonewake.entities.events.EntityDisposeEvent;
-import dev.stonewake.entities.listeners.EntityDisposeListener;
-import dev.stonewake.entities.listeners.EntitySpawnListener;
+import dev.stonewake.entities.Entity;
+import dev.stonewake.utils.NamespacedKey;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public abstract class EntityType {
-    public final int entityId;
-    public final String[] entitySprites;
-    public final Class<? extends Entity> entityClass;
+    protected final NamespacedKey entityTypeId;
+    protected String[] entitySprites;
     public Texture[] cachedEntitySprites;
+    private List<String> entityTags = new ArrayList<>();
 
-    protected List<EntitySpawnListener> entitySpawnListeners = new ArrayList<>();
-    protected List<EntityDisposeListener> entityDisposeListeners = new ArrayList<>();
-
-    public EntityType(int entityId, String[] entitySprites, Class<? extends Entity> entityClass) {
-        this.entityId = entityId;
-        this.entitySprites = entitySprites;
-        this.entityClass = entityClass;
-
+    public EntityType(NamespacedKey entityTypeId) {
+        this.entityTypeId = entityTypeId;
         cachedEntitySprites = new Texture[entitySprites.length];
         setDefaults();
     }
 
     public abstract void setDefaults();
 
-    public List<EntitySpawnListener> getEntitySpawnListeners() {
-        return entitySpawnListeners;
+    public NamespacedKey getEntityTypeId() {
+        return entityTypeId;
     }
 
-    public List<EntityDisposeListener> getEntityDisposeListeners() {
-        return entityDisposeListeners;
+    public String[] getEntitySprites() {
+        return entitySprites;
+    }
+
+    public Texture[] getCachedEntitySprites() {
+        return cachedEntitySprites;
+    }
+
+    public void addEntityTag(String tag) {
+        entityTags.add(tag.toUpperCase(Locale.ROOT));
+    }
+
+    public abstract Entity summonEntity();
+
+    public boolean hasEntityTag(String tag) {
+        return entityTags.contains(tag);
+    }
+
+    public boolean hasEntityTags(String[] tags) {
+        for (String tag : tags) {
+            if (!hasEntityTag(tag)) return false;
+        }
+
+        return true;
     }
 }

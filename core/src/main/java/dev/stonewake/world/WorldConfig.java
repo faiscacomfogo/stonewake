@@ -1,6 +1,6 @@
 package dev.stonewake.world;
 
-import dev.stonewake.tiles.TileType;
+import dev.stonewake.tiles.types.TileType;
 import dev.stonewake.content.tiles.GrassTile;
 
 public class WorldConfig {

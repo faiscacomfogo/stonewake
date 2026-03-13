@@ -1,20 +1,28 @@
-package dev.stonewake.events.models;
+package dev.stonewake.events.subevents;
 
 import dev.stonewake.entities.Entity;
 import dev.stonewake.entities.types.LivingEntityType;
+import dev.stonewake.utils.NamespacedKey;
 import dev.stonewake.world.GameWorld;
 
-public class EntityEvent<T extends Entity, U extends LivingEntityType> extends WorldEvent {
-    public final Object eventSource;
-    public final T targettedEntity;
+public abstract class EntitySubEvent<T extends Entity, U extends LivingEntityType> extends WorldSubEvent {
+    public T targettedEntity;
     public final U targettedEntityType;
-    public final String[] eventTags;
+    public NamespacedKey targettedEntityId;
 
-    public EntityEvent(Object eventSource, T targettedEntity, String[] eventTags, GameWorld world) {
-        super(world);
-        this.eventSource = eventSource;
+    public EntitySubEvent(Object eventSource, T targettedEntity, String[] eventTags, GameWorld world) {
+        super(eventSource, world, eventTags);
+
         this.targettedEntity = targettedEntity;
-        this.targettedEntityType = (U)world.getEntityRegistry().getRegisteredEntityType(targettedEntity.getEntityTypeId());
-        this.eventTags = eventTags;
+        this.targettedEntityType = (U)world.getEntityRegistry().getRegisteredEntityType(targettedEntity.getEntityId());
+        this.targettedEntityId = targettedEntity.getEntityId();
+    }
+
+    public EntitySubEvent(Object eventSource, NamespacedKey targettedEntityId, String[] eventTags, GameWorld world) {
+        super(eventSource, world, eventTags);
+
+        this.targettedEntity = null;
+        this.targettedEntityType = (U)world.getEntityRegistry().getRegisteredEntityType(targettedEntityId);
+        this.targettedEntityId = targettedEntityId;
     }
 }

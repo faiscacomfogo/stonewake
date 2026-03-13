@@ -1,26 +1,18 @@
-package dev.stonewake.tiles;
+package dev.stonewake.tiles.types;
 
 import com.badlogic.gdx.graphics.Texture;
-import dev.stonewake.tiles.listeners.TileBreakListener;
-import dev.stonewake.tiles.listeners.TileChangeListener;
-import dev.stonewake.tiles.listeners.TilePlaceListener;
+import dev.stonewake.tiles.pieces.Tile;
+import dev.stonewake.tiles.TileMap;
 import dev.stonewake.tiles.tiling.AutoTiler;
-import dev.stonewake.tiles.tiling.BitMask;
-
-import java.util.ArrayList;
-import java.util.List;
+import dev.stonewake.utils.NamespacedKey;
 
 public abstract class TileType {
-    private short tileId;
+    private NamespacedKey tileId;
     private Texture cachedTileTexture;
     protected AutoTiler autoTiler;
     protected String tileSprite;
 
-    protected List<TileChangeListener> tileChangeListeners = new ArrayList<>();
-    protected List<TilePlaceListener> tilePlaceListeners = new ArrayList<>();
-    protected List<TileBreakListener> tileBreakListeners = new ArrayList<>();
-
-    public TileType(short tileId) {
+    public TileType(NamespacedKey tileId) {
         this.tileId = tileId;
 
         setDefaults();
@@ -28,7 +20,7 @@ public abstract class TileType {
 
     public abstract void setDefaults();
 
-    public short getTileId() {
+    public NamespacedKey getTileId() {
         return tileId;
     }
 
@@ -53,17 +45,5 @@ public abstract class TileType {
 
     public Texture getCachedTileTexture() {
         return cachedTileTexture;
-    }
-
-    public List<TileChangeListener> getTileChangeListeners() {
-        return tileChangeListeners;
-    }
-
-    public List<TilePlaceListener> getTilePlaceListeners() {
-        return tilePlaceListeners;
-    }
-
-    public List<TileBreakListener> getTileBreakListeners() {
-        return tileBreakListeners;
     }
 }

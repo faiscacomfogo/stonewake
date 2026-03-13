@@ -1,8 +1,8 @@
-package dev.stonewake.tiles;
+package dev.stonewake.tiles.pieces;
 
-import dev.stonewake.tiles.events.TileChangeEvent;
-import dev.stonewake.tiles.events.TileChangeEventType;
+import dev.stonewake.tiles.TileMap;
 import dev.stonewake.tiles.listeners.TileChangeListener;
+import dev.stonewake.tiles.types.TileType;
 import dev.stonewake.utils.TileUtils;
 
 public class TileChunk {
@@ -53,12 +53,12 @@ public class TileChunk {
             tileChangeEventType = TileChangeEventType.CHANGE_TILE;
 
             for (TileChangeListener tileChangeListener : lastTileType.getTileChangeListeners()) {
-                tileChangeListener.tileChange(new TileChangeEvent(tile, tileChangeEventType, lastTileType, currentTileType, true));
+                tileChangeListener.tileChange(new TileChangeEvent(tile, tileChangeEventType, lastTileType, currentTileType, true, tileMap.getWorld()));
             }
         }
 
         for (TileChangeListener tileChangeListener : currentTileType.getTileChangeListeners()) {
-            tileChangeListener.tileChange(new TileChangeEvent(tile, tileChangeEventType, lastTileType, currentTileType, false));
+            tileChangeListener.tileChange(new TileChangeEvent(tile, tileChangeEventType, lastTileType, currentTileType, false, tileMap.getWorld()));
         }
 
         tile.tileType = tileId;
@@ -72,7 +72,7 @@ public class TileChunk {
 
         if (lastTileType != null) {
             for (TileChangeListener tileChangeListener : lastTileType.getTileChangeListeners()) {
-                tileChangeListener.tileChange(new TileChangeEvent(tile, TileChangeEventType.CLEAR_TILE, lastTileType, null, false));
+                tileChangeListener.tileChange(new TileChangeEvent(tile, TileChangeEventType.CLEAR_TILE, lastTileType, null, false, tileMap.getWorld()));
             }
         }
 

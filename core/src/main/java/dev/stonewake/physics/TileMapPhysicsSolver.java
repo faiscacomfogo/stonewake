@@ -2,7 +2,7 @@ package dev.stonewake.physics;
 
 import com.badlogic.gdx.physics.box2d.*;
 import dev.stonewake.rendering.Camera;
-import dev.stonewake.tiles.Tile;
+import dev.stonewake.tiles.pieces.Tile;
 import dev.stonewake.tiles.TileMap;
 import dev.stonewake.tiles.tiling.BitMask;
 import dev.stonewake.utils.TileUtils;

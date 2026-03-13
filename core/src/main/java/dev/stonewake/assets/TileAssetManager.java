@@ -1,8 +1,8 @@
 package dev.stonewake.assets;
 
 import dev.stonewake.tiles.TileMap;
-import dev.stonewake.tiles.TileRegistry;
-import dev.stonewake.tiles.TileType;
+import dev.stonewake.tiles.types.TileRegistry;
+import dev.stonewake.tiles.types.TileType;
 
 public class TileAssetManager {
     private TextureManager textureManager;

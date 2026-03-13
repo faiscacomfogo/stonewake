@@ -1,7 +1,6 @@
 package dev.stonewake.tiles.tiling;
 
-import dev.stonewake.tiles.Tile;
-import dev.stonewake.tiles.TileChunk;
+import dev.stonewake.tiles.pieces.Tile;
 import dev.stonewake.tiles.TileMap;
 
 import java.util.function.Predicate;

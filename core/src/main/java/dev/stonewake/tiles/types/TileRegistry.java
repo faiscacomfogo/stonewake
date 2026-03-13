@@ -1,10 +1,12 @@
-package dev.stonewake.tiles;
+package dev.stonewake.tiles.types;
+
+import dev.stonewake.utils.NamespacedKey;
 
 import java.util.Collection;
 import java.util.HashMap;
 
 public class TileRegistry {
-    private HashMap<Short, TileType> tileTypes;
+    private HashMap<NamespacedKey, TileType> tileTypes;
 
     public TileRegistry() {
         this.tileTypes = new HashMap<>();
@@ -14,7 +16,7 @@ public class TileRegistry {
         tileTypes.put(tileType.getTileId(), tileType);
     }
 
-    public TileType getRegisteredTileType(short tileId) {
+    public TileType getRegisteredTileType(NamespacedKey tileId) {
         return tileTypes.get(tileId);
     }
 

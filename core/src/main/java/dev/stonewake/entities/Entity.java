@@ -1,35 +1,31 @@
 package dev.stonewake.entities;
 
 import com.badlogic.gdx.physics.box2d.Body;
-import dev.stonewake.GameController;
-import dev.stonewake.entities.listeners.EntitySpawnListener;
-
-import java.util.ArrayList;
-import java.util.List;
+import dev.stonewake.utils.NamespacedKey;
+import dev.stonewake.world.GameWorld;
 
 public abstract class Entity {
     private static int nextUniqueId = 0;
 
+    private NamespacedKey entityId;
     private int uniqueEntityId;
     protected Body entityBody;
     protected float entityTime;
 
-    private List<EntitySpawnListener> entitySpawnListeners;
-
-    public Entity(float entityX, float entityY) {
-        entitySpawnListeners = new ArrayList<>();
-        setDefaults();
+    public Entity(GameWorld world, NamespacedKey entityId, float entityX, float entityY) {
+        setDefaults(world);
 
         entityBody.setTransform(entityX, entityY, 0);
 
+        this.entityId = entityId;
         this.uniqueEntityId = nextUniqueId++;
     }
 
-    public abstract void setDefaults();
+    public abstract void setDefaults(GameWorld world);
 
-    public abstract void start(GameController game);
+    public abstract void start(GameWorld world);
 
-    public abstract void update(GameController game);
+    public abstract void update(GameWorld world);
 
     public abstract void dispose();
 
@@ -57,7 +53,7 @@ public abstract class Entity {
         return uniqueEntityId;
     }
 
-    public List<EntitySpawnListener> getEntitySpawnListeners() {
-        return entitySpawnListeners;
+    public NamespacedKey getEntityId() {
+        return entityId;
     }
 }

@@ -6,7 +6,7 @@ import dev.stonewake.events.subevents.EntitySubEvent;
 import dev.stonewake.entities.LivingEntity;
 import dev.stonewake.world.GameWorld;
 
-public class EntityTakeDamageEvent extends Event {
+public class EntityDamageEvent extends Event {
     public static class Pre extends EntitySubEvent {
         public int entityDefense;
         public int damageAmount;
@@ -35,12 +35,12 @@ public class EntityTakeDamageEvent extends Event {
         }
     }
 
-    public EntityTakeDamageEvent(Pre pre) {
+    public EntityDamageEvent(Pre pre) {
         super(pre);
     }
 
     @Override
     public Class<? extends Event> getEventClass() {
-        return EntityTakeDamageEvent.class;
+        return EntityDamageEvent.class;
     }
 }

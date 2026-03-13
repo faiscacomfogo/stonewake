@@ -1,4 +1,7 @@
-package dev.stonewake.tiles;
+package dev.stonewake.tiles.pieces;
+
+import dev.stonewake.tiles.TileMap;
+import dev.stonewake.utils.NamespacedKey;
 
 public class Tile {
     private final byte tileChunkX;
@@ -6,10 +9,10 @@ public class Tile {
     private final short parentChunk;
     private byte flags;
     private byte cachedSpriteIndex = 0;
-    public short tileType;
+    public NamespacedKey tileType;
 
     public Tile(int tileLayer, int tileChunkX, int tileChunkY, short parentChunkX, short parentChunkY) {
-        this.tileType = -1;
+        this.tileType = new NamespacedKey("null", "null");
         this.flags = (byte)((0) | ((tileLayer & 0b00001111) << 2));
         this.tileChunkX = (byte)tileChunkX;
         this.tileChunkY = (byte)tileChunkY;
@@ -17,11 +20,11 @@ public class Tile {
     }
 
     public boolean isTileOccupied() {
-        return tileType != -1;
+        return !"null:null".equals(tileType.toString());
     }
 
     public boolean isTileAir() {
-        return tileType == -1;
+        return "null:null".equals(tileType.toString());
     }
 
     public boolean isTileSpriteIndexDirty() {
